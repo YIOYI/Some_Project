@@ -11,6 +11,7 @@ void div (void);
 int main (void)
 {
 	char ch;
+	int isbreak = 0;
 	
 	menu();
 	while ((ch = getchar()) != 'q')
@@ -27,9 +28,12 @@ int main (void)
 		case 's': sub(); break;
 		case 'm': mul(); break;
 		case 'd': div(); break;
+		case 'q': isbreak = 1; break;
 		default: printf("Sorry, I understand only"
 					" a, s, m, d or q.\n"); break;
 		}
+		if (isbreak)
+			break;
 		
 		menu();
 	}
