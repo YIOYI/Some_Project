@@ -46,6 +46,8 @@ int main (void)
 		case 'c':
 			{
 				ct1 = ContinueGame(chess,ct1,ro);
+				if (ct1 == 0)
+					ct = 0;
 				break;
 			}
 		case 'q':
@@ -276,11 +278,11 @@ int Win (int (*chess)[SIZE])
 		x_ct = o_ct = 0;
 		for (int i = 0; i < SIZE; i ++)
 		{
-			if (chess[SIZE-i-1][i] == 0)
+			if (chess[i][i] == 0)
 			{
 				o_ct ++;
 			}
-			else if (chess[SIZE-i-1][i] == 1)
+			else if (chess[i][i] == 1)
 			{
 				x_ct ++;
 			}
