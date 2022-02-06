@@ -4,7 +4,7 @@
 #include <string.h>
 #define SIZE 3
 
-void Menu (int ct);
+void Menu (void);
 char GetChar (void);
 int GetInt (void);
 void Board (int (*chess)[SIZE]);
@@ -16,13 +16,13 @@ int ContinueGame (int (*chess)[SIZE], int ct, char * ro);
 int main (void)
 {
 	char choice;
-	int ct = 0;
+	int isContinue = 0;
 	int chess[SIZE][SIZE];
 	int ct1;
 	char ro[2];
 	
 	printf("Let's play a game of tic-tac-toe!\n");
-	Menu(ct);
+	Menu();
 	while ((choice = getchar()) != 'q')
 	{
 		int isbreak = 0, isdefault = 0;
@@ -38,17 +38,25 @@ int main (void)
 		case 's':
 			{
 				ct1 = StartGame(chess,ro);
-				ct++;
+				isContinue = 1;
 				if (ct1 == 0)
-					ct = 0;
+					isContinue = 0;
 				break;
 			}
 		case 'c':
 			{
-				ct1 = ContinueGame(chess,ct1,ro);
-				if (ct1 == 0)
-					ct = 0;
-				break;
+				if (!isContinue)
+				{
+					printf("Sorry, you need to start the game in advance\n");
+					break;
+				}
+				else
+				{
+					ct1 = ContinueGame(chess,ct1,ro);
+					if (ct1 == 0)
+						isContinue = 0;
+					break;
+				}
 			}
 		case 'q':
 			{
@@ -57,7 +65,8 @@ int main (void)
 			}
 		default:
 			{
-				isdefault = 1; break;
+				isdefault = 1; 
+				break;
 			}
 		}
 		if (isbreak)
@@ -70,21 +79,20 @@ int main (void)
 			continue;
 		}
 		
-		Menu(ct);
+		Menu();
 	}
 	printf("Bye!\n");
 	
 	return 0;
 }
 
-void Menu (int ct)
+void Menu ()
 {
 	
 	printf("**************************************\n");
 	printf("Enter the operation of your choice:\n");
 	printf("s) Start the game\n");
-	if (ct)
-		printf("c) Continue the game\n");
+	printf("c) Continue the game\n");
 	printf("q) Quit the game\n");
 	printf("**************************************\n");
 	
