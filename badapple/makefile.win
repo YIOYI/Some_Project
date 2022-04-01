@@ -1,0 +1,37 @@
+# Project: badapple
+# Makefile created by Red Panda C++ 0.14.0
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+RES      = badapple_private.res
+OBJ      = main.o badapple.o $(RES)
+LINKOBJ  = main.o badapple.o $(RES)
+CLEANOBJ  =  main.o badapple.o $(RES)
+LIBS     =  -static-libgcc -lwinmm -static
+INCS     =  
+CXXINCS  =  
+BIN      = badapple.exe
+CXXFLAGS = $(CXXINCS)  -O2 -g3 -pipe -std=c99 -D__DEBUG__
+CFLAGS   = $(INCS)  -O2 -g3 -pipe -std=c99 -D__DEBUG__
+RM       = del /q /f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(CLEANOBJ) $(BIN) > NUL 2>&1
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.c
+	$(CC) -c E:/Chengwanlip/Desktop/badapple/main.c -o main.o $(CFLAGS) 
+
+badapple.o: badapple.c
+	$(CC) -c E:/Chengwanlip/Desktop/badapple/badapple.c -o badapple.o $(CFLAGS) 
+
+badapple_private.res: badapple_private.rc 
+	$(WINDRES) -i badapple_private.rc --input-format=rc -o badapple_private.res -O coff 
+
